@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "copy-paste": "^1.5.3",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "node-osc": "^8.1.0"
   },
   "devDependencies": {
     "@mui/material": "^5.15.15",
