@@ -1,24 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Header from './components/Header';
+import MessageList from './components/MessageList';
+import InputArea from './components/InputArea';
+import { chatboxInput, copy } from './utils/services';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    background: {
+      paper: '#0e1621',
+      default: '#17212b',
+    }
+  },
+});
+
+console.log(darkTheme);
 
 function App() {
+  const [list, setList] = useState([]);
+  const [mode, setMode] = useState('message');
+
+  const handleSend = async (text) => {
+    if (mode === 'copy') {
+      await copy({ text });
+    } else {
+      await chatboxInput({ text });
+    }
+
+    if (text) {
+      setList([
+        ...list,
+        {
+          text, time: new Date(), type: mode,
+        }
+      ]);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <Box
+        flexGrow={1}
+        height="100vh"
+        flexDirection="column"
+        display="flex">
+        <Header
+          mode={mode}
+          onModeChange={setMode} />
+        <MessageList list={list} />
+        <InputArea
+          mode={mode}
+          onSubmit={handleSend} />
+      </Box>
+    </ThemeProvider>
   );
 }
 

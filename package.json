@@ -2,14 +2,19 @@
   "name": "vrc-chatbox-osc-web",
   "version": "0.1.0",
   "private": true,
+  "main": "./index.js",
   "dependencies": {
     "copy-paste": "^1.5.3",
     "express": "^4.19.2",
     "node-osc": "^8.1.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@craco/craco": "^7.1.0",
+    "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
     "@mui/styled-engine-sc": "^5.14.12",
+    "dayjs": "^1.11.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
@@ -17,10 +22,10 @@
   },
   "scripts": {
     "start": "node ./index.js",
-    "dev": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject"
   },
   "eslintConfig": {
     "extends": [
@@ -38,5 +43,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "resolutions": {
+    "@mui/styled-engine": "@mui/styled-engine-sc"
+  },
+  "overrides": {
+    "@mui/styled-engine": "@mui/styled-engine-sc"
+  },
+  "proxy": "http://localhost:38888"
 }

@@ -3,7 +3,7 @@ const { copy } = require('copy-paste');
 const { exec } = require('child_process');
 
 module.exports = async (req, res) => {
-	let { text } = Object.assign({}, req.params, req.query);
+	let { text } = Object.assign({}, req.query, req.body);
 	if (text) {
 		if (process.platform === 'win32') {
 			// copy-paste doesn't handle utf-8 on Windows correctly,

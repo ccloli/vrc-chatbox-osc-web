@@ -1,11 +1,12 @@
 const express = require('express');
 const path = require('path');
 const router = require('./router');
-const notFound = require('./util/notFound');
-const errorCatch = require('./util/errorCatch');
+const notFound = require('./utils/notFound');
+const errorCatch = require('./utils/errorCatch');
 
 const app = express();
 
+app.use(express.json());
 app.use(express.static(path.resolve(__dirname, '../', 'build')));
 app.use('/', router);
 app.use('*', notFound);
