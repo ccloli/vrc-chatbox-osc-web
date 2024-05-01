@@ -10,6 +10,7 @@ import debounce from '../utils/debounce';
 import { chatboxTyping } from '../utils/services';
 
 const MAX_LENGTH = 144;
+const TIP_SHOW_LENGTH = 130;
 
 const InputArea = ({
 	value, mode = 'message', sendByEnter = true, onSubmit
@@ -76,15 +77,13 @@ const InputArea = ({
 	const label = mode === 'copy' ? 'Send To Clipboard' : 'Send Message';
 
 	return (
-		<Box
-			flex="none"
-			bgcolor="background.default">
+		<Box flex="none" bgcolor="background.default">
 			<Container>
 				<Box
 					display="flex"
 					alignItems="flex-end"
 					padding="14px 0"
-					gap="6px">
+					gap="10px">
 					<Box flex={1} width={0}>
 						<TextField
 							id="input"
@@ -93,23 +92,25 @@ const InputArea = ({
 							onKeyDown={handleKeyDown}
 							onInput={recordTyping}
 							onBlur={cancelTyping}
-							label={mode === 'message' && input ? `${label} (${input.length}/${MAX_LENGTH})` : label}
+							label={
+								mode === 'message' && input && input.length > TIP_SHOW_LENGTH
+									? `${input.length}/${MAX_LENGTH}`
+									: null
+							}
 							error={mode === 'message' && input && input.length > MAX_LENGTH}
 							multiline
 							maxRows={4}
 							fullWidth
-							sx={{
-								margin: '-2px 0'
-							}}
-							aria-label={label}
+							aria-label="Input message"
+							placeholder={label}
 							variant="standard" />
 					</Box>
 					<Box flex="none">
 						<IconButton
 							id="send-button"
-							size="medium"
+							size="small"
 							color={mode === 'copy' ? 'success' : 'primary'}
-							aria-label="send"
+							aria-label={label}
 							disabled={loading}
 							onClick={handleSubmit}>
 							{loading ? (

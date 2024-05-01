@@ -36,7 +36,7 @@ const Header = ({ mode, onModeChange }) => {
 				<Container disableGutters>
 					<Toolbar>
 						<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-							VRC Chatbox OSC Web
+							VRC Chatbox
 						</Typography>
 						<IconButton
 							id="option-button"

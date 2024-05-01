@@ -24,8 +24,8 @@ const MessageItem  = ({
 				{type === 'copy' ? (
 					<ContentPasteIcon />
 				) : (
-						<ChatIcon />
-					)}
+					<ChatIcon />
+				)}
 			</Avatar>
 			<Card
 				sx={{
