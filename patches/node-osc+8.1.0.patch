@@ -1,0 +1,7 @@
+diff --git a/node_modules/node-osc/package.json b/node_modules/node-osc/package.json
+index f65829b..fda21df 100644
+--- a/node_modules/node-osc/package.json
++++ b/node_modules/node-osc/package.json
+@@ -1,1 +1,2 @@
+ {
++  "main": "./dist/lib/index.js",

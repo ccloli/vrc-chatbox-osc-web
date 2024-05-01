@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "./index.js",
+  "bin": "./index.js",
   "dependencies": {
     "copy-paste": "^1.5.3",
     "express": "^4.19.2",
@@ -15,6 +16,8 @@
     "@mui/material": "^5.15.15",
     "@mui/styled-engine-sc": "^5.14.12",
     "dayjs": "^1.11.11",
+    "patch-package": "^8.0.0",
+    "pkg": "^5.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
@@ -25,7 +28,8 @@
     "dev": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "pack": "pkg . --no-bytecode --public-packages \"*\" --public"
   },
   "eslintConfig": {
     "extends": [
@@ -49,6 +53,16 @@
   },
   "overrides": {
     "@mui/styled-engine": "@mui/styled-engine-sc"
+  },
+  "pkg": {
+    "scripts": "app/**/*.js",
+    "assets": "build/**/*",
+    "targets": [
+      "node16-win-x64",
+      "node16-linuxstatic-x64",
+      "node16-linuxstatic-arm64"
+    ],
+    "outputPath": "dist"
   },
   "proxy": "http://localhost:38888"
 }
