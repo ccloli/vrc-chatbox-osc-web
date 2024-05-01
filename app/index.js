@@ -3,10 +3,12 @@ const path = require('path');
 const router = require('./router');
 const notFound = require('./utils/notFound');
 const errorCatch = require('./utils/errorCatch');
+const logger = require('./utils/logger');
 
 const app = express();
 
 app.use(express.json());
+app.use(logger);
 app.use(express.static(path.resolve(__dirname, '../', 'build')));
 app.use('/', router);
 app.use('*', notFound);
