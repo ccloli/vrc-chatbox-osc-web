@@ -10,7 +10,12 @@ export const request = (url, data, params = {}) => {
 			'content-type': 'application/json',
 			...(params || {}).headers,
 		},
-	}).then(res => res.json()).catch((err) => {
+	}).then(res => res.json()).then((res) => {
+		if (res.code !== 200) {
+			throw res;
+		}
+		return res;
+	}).catch((err) => {
 		console.error(err);
 		showSnackbar({
 			message: err.message || 'Request failed, please try again later.'

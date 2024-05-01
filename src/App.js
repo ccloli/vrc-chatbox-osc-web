@@ -26,24 +26,15 @@ function App() {
   const interval = useRef();
 
   const handleSend = async (text) => {
-    clearInterval(interval.current);
     if (mode === 'copy') {
       await copy({ text });
     } else {
+      clearInterval(interval.current);
       await chatboxInput({
         text, sfx: config.playSound && !!text
       });
-    }
 
-    if (text) {
-      setList([
-        ...list,
-        {
-          text, time: new Date(), type: mode,
-        }
-      ]);
-
-      if (config.keepShowing) {
+      if (text && config.keepShowing) {
         interval.current = setInterval(() => {
           chatboxInput({
             text, sfx: false
@@ -51,6 +42,25 @@ function App() {
         }, 4000);
       }
     }
+
+    const finalList = list.map(e => {
+      if (mode === 'message' && e.keep) {
+        return {
+          ...e, keep: false,
+        };
+      }
+      return e;
+    });
+
+    if (text) {
+      finalList.push({
+        text,
+        time: new Date(),
+        type: mode,
+        keep: mode === 'message' && config.keepShowing,
+      });
+    }
+    setList(finalList);
   };
 
 	const handleAction = (action) => {

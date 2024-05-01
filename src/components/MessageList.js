@@ -97,6 +97,7 @@ const MessageList = ({
 											text={item.text}
 											time={item.time}
 											type={item.type}
+											keep={item.keep}
 											onRefill={onRefill} />
 									</ListItem>
 								</Grow>

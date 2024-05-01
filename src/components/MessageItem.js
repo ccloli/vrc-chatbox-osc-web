@@ -5,13 +5,14 @@ import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
+import CircularProgress from '@mui/material/CircularProgress';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ChatIcon from '@mui/icons-material/Chat';
 import ReplayIcon from '@mui/icons-material/Replay';
 import dayjs from 'dayjs';
 
 const MessageItem  = ({
-	text, time, type = 'message', onRefill
+	text, time, type = 'message', keep = false, onRefill
 }) => {
 	return (
 		<Box width="100%">
@@ -56,6 +57,16 @@ const MessageItem  = ({
 						color="text.secondary"
 						fontSize="small">
 						{dayjs(time).format('YYYY-MM-DD HH:mm:ss')}
+						{keep && (
+							<CircularProgress
+								disableShrink
+								sx={{
+									color: 'inherit',
+									marginLeft: '12px',
+									verticalAlign: 'baseline'
+								}}
+								size={12} />
+						)}
 					</Typography>
 					{onRefill && (
 						<IconButton
