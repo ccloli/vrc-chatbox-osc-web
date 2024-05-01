@@ -18,6 +18,7 @@ const SnackbarWrapper = (props) => {
 			anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
 			autoHideDuration={3000}
 			TransitionComponent={Slide}
+			disableWindowBlurListener
 			sx={{
 				top: 72,
 			}}

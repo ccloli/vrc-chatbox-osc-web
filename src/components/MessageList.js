@@ -84,7 +84,6 @@ const MessageList = ({
 					width="100%"
 					overflow="auto"
 					onScroll={handleListScroll}>
-					<Box flex={1}></Box>
 					<Container>
 						<List
 							id="message-list"

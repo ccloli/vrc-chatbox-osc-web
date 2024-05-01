@@ -13,7 +13,7 @@ const MAX_LENGTH = 144;
 const TIP_SHOW_LENGTH = 130;
 
 const InputArea = ({
-	value, mode = 'message', sendByEnter = true, onSubmit
+	value, mode = 'message', sendByEnter = true, sendTyping = true, onSubmit
 }) => {
 	const [input, setInput] = useState(value || '');
 	const [loading, setLoading] = useState(false);
@@ -21,6 +21,9 @@ const InputArea = ({
 	const typing = useRef(false);
 
 	const cancelTyping = useCallback(() => {
+		if (!sendTyping) {
+			return;
+		}
 		clearTimeout(timer.current);
 		if (typing.current) {
 			chatboxTyping({
@@ -28,9 +31,12 @@ const InputArea = ({
 			});
 			typing.current = false;
 		}
-	}, []);
+	}, [sendTyping]);
 
 	const recordTyping = useCallback(debounce(() => {
+		if (!sendTyping) {
+			return;
+		}
 		if (!typing.current) {
 			chatboxTyping({
 				status: true
@@ -40,7 +46,7 @@ const InputArea = ({
 
 		clearTimeout(timer.current);
 		timer.current = setTimeout(cancelTyping, 2000);
-	}, 1000), []);
+	}, 1000), [sendTyping]);
 
 	const handleInput = (event) => {
 		setInput(event.target.value);
@@ -60,7 +66,9 @@ const InputArea = ({
 		}).finally(() => {
 			setLoading(false);
 		});
-		cancelTyping();
+		if (sendTyping) {
+			cancelTyping();
+		}
 	};
 
 	const handleKeyDown = (event) => {
@@ -97,7 +105,7 @@ const InputArea = ({
 									? `${input.length}/${MAX_LENGTH}`
 									: null
 							}
-							error={mode === 'message' && input && input.length > MAX_LENGTH}
+							error={mode === 'message' && !!input && input.length > MAX_LENGTH}
 							multiline
 							maxRows={4}
 							fullWidth

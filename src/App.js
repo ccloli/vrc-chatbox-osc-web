@@ -5,6 +5,7 @@ import Header from './components/Header';
 import MessageList from './components/MessageList';
 import InputArea from './components/InputArea';
 import { chatboxInput, copy } from './utils/services';
+import { defaultConfig } from './utils/const';
 
 const darkTheme = createTheme({
   palette: {
@@ -16,17 +17,18 @@ const darkTheme = createTheme({
   },
 });
 
-console.log(darkTheme);
-
 function App() {
   const [list, setList] = useState([]);
   const [mode, setMode] = useState('message');
+  const [config, setConfig] = useState(defaultConfig);
 
   const handleSend = async (text) => {
     if (mode === 'copy') {
       await copy({ text });
     } else {
-      await chatboxInput({ text });
+      await chatboxInput({
+        text, sfx: config.playSound
+      });
     }
 
     if (text) {
@@ -52,6 +54,8 @@ function App() {
         <MessageList list={list} />
         <InputArea
           mode={mode}
+          sendTyping={config.showInputIndicator}
+          sendByEnter={config.sendByEnter}
           onSubmit={handleSend} />
       </Box>
     </ThemeProvider>
