@@ -9,6 +9,8 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import debounce from '../utils/debounce';
 import { chatboxTyping } from '../utils/services';
 
+const MAX_LENGTH = 144;
+
 const InputArea = ({
 	value, mode = 'message', sendByEnter = true, onSubmit
 }) => {
@@ -71,6 +73,8 @@ const InputArea = ({
 		}
 	};
 
+	const label = mode === 'copy' ? 'Send To Clipboard' : 'Send Message';
+
 	return (
 		<Box
 			flex="none"
@@ -89,17 +93,18 @@ const InputArea = ({
 							onKeyDown={handleKeyDown}
 							onInput={recordTyping}
 							onBlur={cancelTyping}
+							label={mode === 'message' && input ? `${label} (${input.length}/${MAX_LENGTH})` : label}
+							error={mode === 'message' && input && input.length > MAX_LENGTH}
 							multiline
 							maxRows={4}
 							fullWidth
-							aria-label="Message"
-							variant="standard"
-							placeholder={mode === 'copy' ? 'Send To Clipboard' : 'Send Message'} />
+							aria-label={label}
+							variant="standard" />
 					</Box>
 					<Box flex="none">
 						<IconButton
 							id="send-button"
-							size="small"
+							size="large"
 							color={mode === 'copy' ? 'success' : 'primary'}
 							aria-label="send"
 							disabled={loading}
