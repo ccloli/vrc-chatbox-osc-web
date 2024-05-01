@@ -68,9 +68,7 @@ const InputArea = ({
 		) {
 			event.preventDefault();
 			handleSubmit();
-			return;
 		}
-		recordTyping();
 	};
 
 	return (
@@ -89,6 +87,7 @@ const InputArea = ({
 							value={input}
 							onChange={handleInput}
 							onKeyDown={handleKeyDown}
+							onInput={recordTyping}
 							onBlur={cancelTyping}
 							multiline
 							maxRows={4}
