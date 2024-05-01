@@ -4,7 +4,8 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Grow from '@mui/material/Grow';
 import MessageItem from './MessageItem';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 
 const Wrapper = ({ children }) => (
 	<Box
@@ -60,24 +61,26 @@ const MessageList = ({
 					padding="16px"
 					width="100%"
 					overflow="auto">
-					<List
-						id="message-list"
-						sx={{ width: '100%' }}>
-						{list.map((item, index) => (
-							<Grow direction="up" in key={index}>
-								<ListItem
-									key={index}
-									disableGutters>
-									<MessageItem
-										text={item.text}
-										time={item.time}
-										type={item.type}
-										onRefill={onRefill} />
-								</ListItem>
-							</Grow>
-						))}
-					</List>
-					<span id="message-list-end" ref={end}></span>
+					<Container>
+						<List
+							id="message-list"
+							sx={{ width: '100%', outline: 'none' }}>
+							{list.map((item, index) => (
+								<Grow direction="up" in key={index}>
+									<ListItem
+										key={item.time || index}
+										disableGutters>
+										<MessageItem
+											text={item.text}
+											time={item.time}
+											type={item.type}
+											onRefill={onRefill} />
+									</ListItem>
+								</Grow>
+							))}
+						</List>
+						<span id="message-list-end" ref={end}></span>
+					</Container>
 				</Box>
 			</Box>
 		</Wrapper>
