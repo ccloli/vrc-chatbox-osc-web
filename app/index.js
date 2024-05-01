@@ -4,6 +4,7 @@ const router = require('./router');
 const notFound = require('./utils/notFound');
 const errorCatch = require('./utils/errorCatch');
 const logger = require('./utils/logger');
+const showUrlHelp = require('./utils/showUrlHelp');
 
 const app = express();
 
@@ -14,8 +15,10 @@ app.use('/', router);
 app.use('*', notFound);
 app.use(errorCatch);
 
-app.listen(38888, () => {
-	console.log(`Server is now listening on port 38888`);
+const port = process.env.PORT || 38888;
+app.listen(port, () => {
+	console.log(`Server is now listening on port ${port}.`);
+	showUrlHelp({ port });
 });
 
 app.on('error', (err) => {
