@@ -9,7 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import showSnackbar from '../utils/showSnackbar';
 
 const Header = ({ mode, onAction }) => {
 	const button = useRef();

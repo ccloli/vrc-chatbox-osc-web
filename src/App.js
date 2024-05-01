@@ -1,12 +1,12 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Header from './components/Header';
 import MessageList from './components/MessageList';
 import InputArea from './components/InputArea';
-import { chatboxInput, copy } from './utils/services';
-import { defaultConfig } from './utils/const';
 import Config from './components/Config';
+import { chatboxInput, copy } from './utils/services';
+import { defaultConfig, CONFIG_KEY } from './utils/const';
 
 const darkTheme = createTheme({
   palette: {
@@ -76,6 +76,26 @@ function App() {
     }
   };
 
+  const handleSaveConfig = (config) => {
+    setConfig(config);
+    localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
+  };
+
+  useEffect(() => {
+    try {
+      setConfig({
+        ...defaultConfig,
+        ...JSON.parse(localStorage.getItem(CONFIG_KEY)),
+      });
+    } catch (err) {
+      console.error('failed to load config', err);
+    }
+
+    return () => {
+      clearInterval(interval.current);
+    };
+  }, []);
+
   return (
     <ThemeProvider theme={darkTheme}>
       <Box
@@ -95,7 +115,7 @@ function App() {
         <Config
           open={open}
           value={config}
-          onChange={setConfig}
+          onChange={handleSaveConfig}
           onClose={() => setOpen(false)} />
       </Box>
     </ThemeProvider>

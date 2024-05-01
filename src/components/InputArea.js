@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -81,6 +81,10 @@ const InputArea = ({
 			}
 		}
 	};
+
+	useEffect(() => {
+		return cancelTyping;
+	}, [cancelTyping]);
 
 	const label = mode === 'copy' ? 'Send To Clipboard' : 'Send Message';
 

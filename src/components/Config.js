@@ -75,7 +75,7 @@ const Config = ({
 								<ListItemButton
 									onClick={() => handleChange('sendWithEnter', !value.sendWithEnter)}>
 									<ListItemText
-										primary="Send message by Enter"
+										primary="Send message with Enter"
 										secondary={
 											value.sendWithEnter
 												? 'Press Enter key to send. To start a new line, press Shift + Enter.'
@@ -86,7 +86,7 @@ const Config = ({
 								<ListItemButton
 									onClick={() => handleChange('keepShowing', !value.keepShowing)}>
 									<ListItemText
-										primary="Keep showing last message"
+										primary="Keep showing the last message"
 										secondary="Send the last message every 4 seconds, until an empty message send." />
 									<Switch edge="end" checked={value.keepShowing} />
 								</ListItemButton>
