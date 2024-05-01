@@ -43,7 +43,7 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <Box
         flexGrow={1}
-        height="100vh"
+        height="100%"
         flexDirection="column"
         display="flex">
         <Header

@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -25,6 +25,14 @@ const MessageList = ({
 }) => {
 	const scroller = useRef();
 	const end = useRef();
+	const isAtBottom = useRef(true);
+
+	const handleListScroll = useCallback((event) => {
+		const target = event.target;
+		requestAnimationFrame(() => {
+			isAtBottom.current = target.scrollTop + target.clientHeight + 30 >= target.scrollHeight;
+		});
+	}, []);
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -32,9 +40,23 @@ const MessageList = ({
 				end.current.scrollIntoView({
 					behavior: 'smooth',
 				});
+				isAtBottom.current = true;
 			}
 		}, 50);
 	}, [list]);
+
+	useEffect(() => {
+		const pinAtBottom = () => {
+			if (scroller.current && isAtBottom.current) {
+				scroller.current.scrollTop = scroller.current.scrollHeight;
+			}
+		};
+		window.addEventListener('resize', pinAtBottom);
+
+		return () => {
+			window.removeEventListener('resize', pinAtBottom);
+		};
+	}, []);
 
 	if (!list || !list.length) {
 		return (
@@ -58,9 +80,11 @@ const MessageList = ({
 					id="message-list-scroller"
 					boxSizing="border-box"
 					maxHeight="100%"
-					padding="16px"
+					padding="16px 0"
 					width="100%"
-					overflow="auto">
+					overflow="auto"
+					onScroll={handleListScroll}>
+					<Box flex={1}></Box>
 					<Container>
 						<List
 							id="message-list"

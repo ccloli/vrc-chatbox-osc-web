@@ -19,6 +19,10 @@ const InputArea = ({
 
 	const handleSubmit = () => {
 		setLoading(true);
+		const node = document.getElementById('input');
+		if (node) {
+			node.focus();
+		}
 		Promise.resolve(
 			onSubmit && onSubmit(input)
 		).then(() => {
@@ -47,10 +51,11 @@ const InputArea = ({
 				<Box
 					display="flex"
 					alignItems="flex-end"
-					padding="14px"
+					padding="14px 0"
 					gap="10px">
 					<Box flex={1} width={0}>
 						<TextField
+							id="input"
 							value={input}
 							onChange={handleInput}
 							onKeyDown={handleKeyDown}
