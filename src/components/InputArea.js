@@ -84,7 +84,7 @@ const InputArea = ({
 					display="flex"
 					alignItems="flex-end"
 					padding="14px 0"
-					gap="10px">
+					gap="6px">
 					<Box flex={1} width={0}>
 						<TextField
 							id="input"
@@ -98,13 +98,16 @@ const InputArea = ({
 							multiline
 							maxRows={4}
 							fullWidth
+							sx={{
+								margin: '-2px 0'
+							}}
 							aria-label={label}
 							variant="standard" />
 					</Box>
 					<Box flex="none">
 						<IconButton
 							id="send-button"
-							size="large"
+							size="medium"
 							color={mode === 'copy' ? 'success' : 'primary'}
 							aria-label="send"
 							disabled={loading}
