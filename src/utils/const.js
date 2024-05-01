@@ -5,4 +5,5 @@ export const defaultConfig = {
 	showInputIndicator: true,
 	playSound: true,
 	sendWithEnter: true,
+	keepShowing: false,
 };

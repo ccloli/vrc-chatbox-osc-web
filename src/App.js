@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Header from './components/Header';
@@ -23,13 +23,15 @@ function App() {
   const [mode, setMode] = useState('message');
   const [config, setConfig] = useState(defaultConfig);
   const [open, setOpen] = useState(false);
+  const interval = useRef();
 
   const handleSend = async (text) => {
+    clearInterval(interval.current);
     if (mode === 'copy') {
       await copy({ text });
     } else {
       await chatboxInput({
-        text, sfx: config.playSound
+        text, sfx: config.playSound && !!text
       });
     }
 
@@ -40,6 +42,14 @@ function App() {
           text, time: new Date(), type: mode,
         }
       ]);
+
+      if (config.keepShowing) {
+        interval.current = setInterval(() => {
+          chatboxInput({
+            text, sfx: false
+          });
+        }, 4000);
+      }
     }
   };
 

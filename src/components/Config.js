@@ -83,6 +83,13 @@ const Config = ({
 										} />
 									<Switch edge="end" checked={value.sendWithEnter} />
 								</ListItemButton>
+								<ListItemButton
+									onClick={() => handleChange('keepShowing', !value.keepShowing)}>
+									<ListItemText
+										primary="Keep showing last message"
+										secondary="Send the last message every 4 seconds, until an empty message send." />
+									<Switch edge="end" checked={value.keepShowing} />
+								</ListItemButton>
 							</List>
 						</Container>
 					</Paper>
