@@ -4,5 +4,5 @@ export const defaultConfig = {
 	port: 9000,
 	showInputIndicator: true,
 	playSound: true,
-	sendByEnter: true,
+	sendWithEnter: true,
 };

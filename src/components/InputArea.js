@@ -13,7 +13,7 @@ const MAX_LENGTH = 144;
 const TIP_SHOW_LENGTH = 130;
 
 const InputArea = ({
-	value, mode = 'message', sendByEnter = true, sendTyping = true, onSubmit
+	value, mode = 'message', sendWithEnter = true, sendTyping = true, onSubmit
 }) => {
 	const [input, setInput] = useState(value || '');
 	const [loading, setLoading] = useState(false);
@@ -72,13 +72,13 @@ const InputArea = ({
 	};
 
 	const handleKeyDown = (event) => {
-		if (
-			sendByEnter &&
-			event.keyCode === 13 &&
-			!event.shiftKey
-		) {
-			event.preventDefault();
-			handleSubmit();
+		if (event.keyCode === 13) {
+			if (
+				sendWithEnter ? !event.shiftKey : event.ctrlKey
+			) {
+				event.preventDefault();
+				handleSubmit();
+			}
 		}
 	};
 

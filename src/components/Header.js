@@ -11,23 +11,17 @@ import Container from '@mui/material/Container';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import showSnackbar from '../utils/showSnackbar';
 
-const Header = ({ mode, onModeChange }) => {
+const Header = ({ mode, onAction }) => {
 	const button = useRef();
 	const [open, setOpen] = useState(false);
 
 	const handleClose = () => setOpen(false);
-	
+
 	const handleAction = (action) => {
-		if (
-			action === 'message' || action === 'copy'
-		) {
-			onModeChange(action);
-		} else {
-			showSnackbar({
-				message: 'Coming soon!'
-			});
-		}
 		handleClose();
+		if (onAction) {
+			onAction(action);
+		}
 	};
 
 	return (
@@ -60,7 +54,7 @@ const Header = ({ mode, onModeChange }) => {
 								<Checkbox
 									sx={{ paddingLeft: 0 }}
 									checked={mode === 'message'} />
-								Send to VRChat chatbox
+								Send to VRChat Chatbox
 							</MenuItem>
 							<MenuItem
 								onClick={handleAction.bind(this, 'copy')}>
