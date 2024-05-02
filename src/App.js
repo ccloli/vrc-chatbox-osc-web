@@ -22,7 +22,7 @@ function App() {
   const [list, setList] = useState([]);
   const [mode, setMode] = useState('message');
   const [config, setConfig] = useState(defaultConfig);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(window.history.state === 'config');
   const input = useRef('');
   const lastInput = useRef('');
   const interval = useRef();
@@ -80,6 +80,7 @@ function App() {
       
       case 'config':
         setOpen(true);
+        window.history.pushState('config', document.title);
         break;
 
       case 'clear':
@@ -145,6 +146,10 @@ function App() {
       console.error('failed to load config', err);
     }
 
+    window.addEventListener('popstate', (event) => {
+      setOpen(event.state === 'config');
+    });
+
     return () => {
       clearInterval(interval.current);
       interval.current = null;
@@ -172,7 +177,7 @@ function App() {
           open={open}
           value={config}
           onChange={handleSaveConfig}
-          onClose={() => setOpen(false)} />
+          onClose={() => window.history.back()} />
       </Box>
     </ThemeProvider>
   );

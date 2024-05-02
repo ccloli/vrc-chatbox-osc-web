@@ -47,6 +47,8 @@ const Header = ({ mode, onAction }) => {
 						</IconButton>
 						<Menu
 							anchorEl={button.current}
+							transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+							anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 							open={open}
 							onClose={handleClose}
 							MenuListProps={{
