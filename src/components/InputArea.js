@@ -44,6 +44,9 @@ const InputArea = ({
 	}, 1000), [sendTyping]);
 
 	const handleInput = (event) => {
+		if (loading) {
+			return;
+		}
 		const value = event.target.value;
 		setInput(value);
 		if (onChange) {
