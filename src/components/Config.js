@@ -123,7 +123,7 @@ const Config = ({
 									onClick={() => handleChange('keepShowing', !value.keepShowing)}>
 									<ListItemText
 										primary="Keep showing the last message"
-										secondary="Send the last message every 4 seconds, until an empty message send." />
+										secondary="Send the last message every 10 seconds, until an empty message send." />
 									<Switch edge="end" checked={value.keepShowing} />
 								</ListItemButton>
 								<ListItemButton
