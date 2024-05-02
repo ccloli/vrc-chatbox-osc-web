@@ -153,7 +153,11 @@ const InputArea = ({
 							onBlur={handleBlur}
 							label={
 								mode === 'message' && input && input.length > TIP_SHOW_LENGTH
-									? `${input.length}/${MAX_LENGTH}`
+									? (
+										<Box component="span" sx={{ userSelect: 'none' }}>
+											{`${input.length}/${MAX_LENGTH}`}
+										</Box>
+									)
 									: null
 							}
 							color={

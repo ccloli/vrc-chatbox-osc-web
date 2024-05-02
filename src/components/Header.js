@@ -29,7 +29,10 @@ const Header = ({ mode, onAction }) => {
 			<AppBar position="static">
 				<Container disableGutters>
 					<Toolbar>
-						<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+						<Typography
+							variant="h6"
+							component="div"
+							sx={{ flexGrow: 1, userSelect: 'none' }}>
 							VRC Chatbox
 						</Typography>
 						<IconButton

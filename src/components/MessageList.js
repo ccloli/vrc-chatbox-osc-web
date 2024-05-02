@@ -74,7 +74,7 @@ const MessageList = ({
 	if (!list || !list.length) {
 		return (
 			<Wrapper>
-				<Typography color="text.secondary">
+				<Typography color="text.secondary" sx={{ userSelect: 'none' }}>
 					Nothing here yet!
 				</Typography>
 			</Wrapper>
