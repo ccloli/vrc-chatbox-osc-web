@@ -34,7 +34,7 @@ const Config = ({
 
 			showSnackbar({
 				message: 'Configuration is reset.',
-				anchorOrigin: { vertical: 'center', horizontal: 'bottom' },
+				anchorOrigin: { vertical: 'bottom', horizontal: 'center' },
 				action: (
 					<Button
 						color="primary"
