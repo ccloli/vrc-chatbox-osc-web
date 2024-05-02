@@ -160,7 +160,7 @@ const InputArea = ({
 								mode === 'message' && /[\u4E00-\u9FCC]/.test(input || '') && input.length > CJK_MAX_LENGTH
 									? 'warning' : 'primary'
 							}
-							error={mode === 'message' && input && input.length > MAX_LENGTH}
+							error={mode === 'message' && !!input && input.length > MAX_LENGTH}
 							multiline
 							maxRows={4}
 							fullWidth
