@@ -6,8 +6,9 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
-import Checkbox from '@mui/material/Checkbox';
+import Radio from '@mui/material/Radio';
 import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const Header = ({ mode, onAction }) => {
@@ -50,25 +51,30 @@ const Header = ({ mode, onAction }) => {
 							}}>
 							<MenuItem
 								onClick={handleAction.bind(this, 'message')}>
-								<Box lineHeight="38px" flex={1} mr="4px">
+								<Box lineHeight="38px" flex={1}>
 									Send to VRChat Chatbox
 								</Box>
-								<Checkbox
-									size="small"
-									checked={mode === 'message'} />
+								<Box ml="8px" mr="-2px">
+									<Radio
+										size="small"
+										checked={mode === 'message'} />
+								</Box>
 							</MenuItem>
 							<MenuItem
 								onClick={handleAction.bind(this, 'copy')}>
-								<Box lineHeight="38px" flex={1} mr="4px">
+								<Box lineHeight="38px" flex={1}>
 									Send to system clipboard
 								</Box>
-								<Checkbox
-									size="small"
-									checked={mode === 'copy'} />
+								<Box ml="8px" mr="-2px">
+									<Radio
+										size="small"
+										checked={mode === 'copy'} />
+								</Box>
 							</MenuItem>
+							<Divider />
 							<MenuItem
 								onClick={handleAction.bind(this, 'config')}>
-								<Box lineHeight="38px" flex={1} mr="4px">
+								<Box lineHeight="38px" flex={1}>
 									Config
 								</Box>
 							</MenuItem>
