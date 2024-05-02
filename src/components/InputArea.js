@@ -66,6 +66,7 @@ const InputArea = ({
 			onSubmit && onSubmit(input)
 		).then(() => {
 			setInput('');
+			onChange('');
 		}).finally(() => {
 			setLoading(false);
 		});

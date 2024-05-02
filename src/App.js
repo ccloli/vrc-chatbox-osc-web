@@ -23,7 +23,8 @@ function App() {
   const [mode, setMode] = useState('message');
   const [config, setConfig] = useState(defaultConfig);
   const [open, setOpen] = useState(false);
-  const input = useRef();
+  const input = useRef('');
+  const lastInput = useRef('');
   const interval = useRef();
 
   const handleSend = async (text) => {
@@ -34,6 +35,7 @@ function App() {
       await chatboxInput({
         text, sfx: config.playSound && !!text
       });
+      lastInput.current = '';
 
       if (text && config.keepShowing) {
         interval.current = setInterval(() => {
@@ -87,22 +89,21 @@ function App() {
   };
 
   useEffect(() => {
-    let interval;
+    let realtimeInterval;
     if (mode === 'message' && config.realtimeInput) {
-      let lastText = '';
-      interval = setInterval(() => {
-        if (input.current || input.current !== lastText) {
+      realtimeInterval = setInterval(() => {
+        if (input.current || input.current !== lastInput.current) {
           chatboxInput({
             text: input.current, sfx: false
           });
-          lastText = input.current;
+          lastInput.current = input.current;
         }
       }, 2e3);
     }
 
     return () => {
-      if (interval) {
-        clearInterval(interval);
+      if (realtimeInterval) {
+        clearInterval(realtimeInterval);
       }
     };
   }, [config.realtimeInput, mode]);
