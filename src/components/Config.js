@@ -66,6 +66,13 @@ const Config = ({
 									<Switch edge="end" checked={value.showInputIndicator} />
 								</ListItemButton>
 								<ListItemButton
+									onClick={() => handleChange('showInputIndicatorForClipboard', !value.showInputIndicatorForClipboard)}>
+									<ListItemText
+										primary="Show input indicator for clipboard"
+										secondary="Although you're not chatting with others probably, you're still typing!" />
+									<Switch edge="end" checked={value.showInputIndicatorForClipboard} />
+								</ListItemButton>
+								<ListItemButton
 									onClick={() => handleChange('playSound', !value.playSound)}>
 									<ListItemText
 										primary="Play message sound"

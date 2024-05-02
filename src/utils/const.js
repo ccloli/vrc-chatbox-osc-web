@@ -3,6 +3,7 @@ export const defaultConfig = {
 	host: '127.0.0.1',
 	port: 9000,
 	showInputIndicator: true,
+	showInputIndicatorForClipboard: false,
 	playSound: true,
 	sendWithEnter: true,
 	keepShowing: false,

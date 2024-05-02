@@ -21,9 +21,6 @@ const InputArea = ({
 	const typing = useRef(false);
 
 	const cancelTyping = useCallback(() => {
-		if (!sendTyping) {
-			return;
-		}
 		clearTimeout(timer.current);
 		if (typing.current) {
 			chatboxTyping({
