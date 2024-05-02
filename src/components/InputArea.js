@@ -125,9 +125,7 @@ const InputArea = ({
 	}, [handleTouchMove]);
 
 	useEffect(() => {
-		if (value !== input) {
-			setInput(value);
-		}
+		setInput(value);
 	}, [value]);
 
 	const label = mode === 'copy' ? 'Send To Clipboard' : 'Send Message';
