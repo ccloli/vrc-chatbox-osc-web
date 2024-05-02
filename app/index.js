@@ -5,6 +5,7 @@ const notFound = require('./utils/notFound');
 const errorCatch = require('./utils/errorCatch');
 const logger = require('./utils/logger');
 const showUrlHelp = require('./utils/showUrlHelp');
+require('./utils/showSystemInfo')();
 
 const app = express();
 
