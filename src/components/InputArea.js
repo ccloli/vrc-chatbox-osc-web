@@ -36,11 +36,9 @@ const InputArea = ({
 		if (!sendTyping) {
 			return;
 		}
-		if (!typing.current) {
-			chatboxTyping({
-				status: true
-			});
-		}
+		chatboxTyping({
+			status: true
+		});
 		typing.current = true;
 
 		clearTimeout(timer.current);
