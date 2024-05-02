@@ -27,7 +27,7 @@ function App() {
   const lastInput = useRef('');
   const interval = useRef();
 
-  const handleSend = async (text) => {
+  const handleSend = async (text = '') => {
     if (mode === 'copy') {
       await copy({ text });
     } else {
@@ -84,7 +84,7 @@ function App() {
     localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
   };
 
-  const handleInputChange = (text) => {
+  const handleInputChange = (text = '') => {
     input.current = text;
   };
 
@@ -94,7 +94,7 @@ function App() {
       realtimeInterval = setInterval(() => {
         if (input.current || input.current !== lastInput.current) {
           chatboxInput({
-            text: input.current, sfx: false
+            text: input.current || '', sfx: false
           });
           lastInput.current = input.current;
         }

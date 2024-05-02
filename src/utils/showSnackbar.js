@@ -25,6 +25,7 @@ const SnackbarWrapper = (props) => {
 			key={key}
 			{...props}
 			open={open}
+			onClick={handleClose}
 			onClose={handleClose} />
 	);
 };
