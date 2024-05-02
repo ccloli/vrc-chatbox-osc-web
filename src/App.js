@@ -23,6 +23,7 @@ function App() {
   const [mode, setMode] = useState('message');
   const [config, setConfig] = useState(defaultConfig);
   const [open, setOpen] = useState(false);
+  const input = useRef();
   const interval = useRef();
 
   const handleSend = async (text) => {
@@ -81,6 +82,31 @@ function App() {
     localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
   };
 
+  const handleInputChange = (text) => {
+    input.current = text;
+  };
+
+  useEffect(() => {
+    let interval;
+    if (mode === 'message' && config.realtimeInput) {
+      let lastText = '';
+      interval = setInterval(() => {
+        if (input.current || input.current !== lastText) {
+          chatboxInput({
+            text: input.current, sfx: false
+          });
+          lastText = input.current;
+        }
+      }, 2e3);
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [config.realtimeInput, mode]);
+
   useEffect(() => {
     try {
       setConfig({
@@ -111,6 +137,7 @@ function App() {
           mode={mode}
           sendTyping={mode === 'copy' ? config.showInputIndicatorForClipboard : config.showInputIndicator}
           sendWithEnter={config.sendWithEnter}
+          onChange={handleInputChange}
           onSubmit={handleSend} />
         <Config
           open={open}

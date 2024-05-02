@@ -97,6 +97,13 @@ const Config = ({
 										secondary="Send the last message every 4 seconds, until an empty message send." />
 									<Switch edge="end" checked={value.keepShowing} />
 								</ListItemButton>
+								<ListItemButton
+									onClick={() => handleChange('realtimeInput', !value.realtimeInput)}>
+									<ListItemText
+										primary="Show input on the fly"
+										secondary="Send what you're typing in realtime. Technically, every 2 seconds." />
+									<Switch edge="end" checked={value.realtimeInput} />
+								</ListItemButton>
 							</List>
 						</Container>
 					</Paper>

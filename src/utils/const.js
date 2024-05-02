@@ -7,6 +7,7 @@ export const defaultConfig = {
 	playSound: true,
 	sendWithEnter: true,
 	keepShowing: false,
+	realtimeInput: false,
 };
 
 export const CONFIG_KEY = 'vrc-chatbox-osc-web-config';

@@ -14,7 +14,7 @@ const MAX_LENGTH = 144;
 const TIP_SHOW_LENGTH = 130;
 
 const InputArea = ({
-	value, mode = 'message', sendWithEnter = true, sendTyping = true, onSubmit
+	value, mode = 'message', sendWithEnter = true, sendTyping = true, onChange, onSubmit
 }) => {
 	const [input, setInput] = useState(value || '');
 	const [loading, setLoading] = useState(false);
@@ -48,7 +48,11 @@ const InputArea = ({
 	}, 1000), [sendTyping]);
 
 	const handleInput = (event) => {
-		setInput(event.target.value);
+		const value = event.target.value;
+		setInput(value);
+		if (onChange) {
+			onChange(value);
+		}
 	};
 
 	const handleSubmit = () => {
@@ -123,6 +127,12 @@ const InputArea = ({
 			}
 		};
 	}, [handleTouchMove]);
+
+	useEffect(() => {
+		if (value !== input) {
+			setInput(value);
+		}
+	}, [value]);
 
 	const label = mode === 'copy' ? 'Send To Clipboard' : 'Send Message';
 
