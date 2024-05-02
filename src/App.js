@@ -27,11 +27,23 @@ function App() {
   const lastInput = useRef('');
   const interval = useRef();
 
+  const getListWithoutKeeping = () => {
+    return list.map(e => {
+      if (mode === 'message' && e.keep) {
+        return {
+          ...e, keep: false,
+        };
+      }
+      return e;
+    });
+  };
+
   const handleSend = async (text = '') => {
     if (mode === 'copy') {
       await copy({ text });
     } else {
       clearInterval(interval.current);
+      interval.current = null;
       await chatboxInput({
         text, sfx: config.playSound && !!text
       });
@@ -46,14 +58,7 @@ function App() {
       }
     }
 
-    const finalList = list.map(e => {
-      if (mode === 'message' && e.keep) {
-        return {
-          ...e, keep: false,
-        };
-      }
-      return e;
-    });
+    const finalList = getListWithoutKeeping();
 
     if (text) {
       finalList.push({
@@ -104,9 +109,18 @@ function App() {
     return () => {
       if (realtimeInterval) {
         clearInterval(realtimeInterval);
+        realtimeInterval = null;
       }
     };
   }, [config.realtimeInput, mode]);
+
+  useEffect(() => {
+    if (!config.keepShowing && interval.current) {
+      clearInterval(interval.current);
+      interval.current = null;
+      setList(getListWithoutKeeping());
+    }
+  }, [config.keepShowing]);
 
   useEffect(() => {
     try {
@@ -120,6 +134,7 @@ function App() {
 
     return () => {
       clearInterval(interval.current);
+      interval.current = null;
     };
   }, []);
 
