@@ -56,7 +56,10 @@ const MessageList = ({
 
 	useEffect(() => {
 		setTimeout(scrollDown, 50);
-	}, [list]);
+		if (!(list || []).length) {
+			setScrollDownVisible(false);
+		}
+	}, [list, scrollDown]);
 
 	useEffect(() => {
 		const pinAtBottom = () => {

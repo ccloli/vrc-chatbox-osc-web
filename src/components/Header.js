@@ -76,6 +76,12 @@ const Header = ({ mode, onAction }) => {
 							</MenuItem>
 							<Divider />
 							<MenuItem
+								onClick={handleAction.bind(this, 'clear')}>
+								<Box lineHeight="38px" flex={1}>
+									Clear History
+								</Box>
+							</MenuItem>
+							<MenuItem
 								onClick={handleAction.bind(this, 'config')}>
 								<Box lineHeight="38px" flex={1}>
 									Config

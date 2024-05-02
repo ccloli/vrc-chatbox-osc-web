@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Header from './components/Header';
@@ -27,7 +27,7 @@ function App() {
   const lastInput = useRef('');
   const interval = useRef();
 
-  const getListWithoutKeeping = (l = list) => {
+  const getListWithoutKeeping = useCallback((l) => {
     return l.map(e => {
       if (mode === 'message' && e.keep) {
         return {
@@ -36,7 +36,7 @@ function App() {
       }
       return e;
     });
-  };
+  }, [mode]);
 
   const handleSend = async (text = '') => {
     if (mode === 'copy') {
@@ -58,7 +58,7 @@ function App() {
       }
     }
 
-    const finalList = getListWithoutKeeping();
+    const finalList = getListWithoutKeeping(list);
 
     if (text) {
       finalList.push({
@@ -72,15 +72,21 @@ function App() {
   };
 
 	const handleAction = (action) => {
-    if (
-      action === 'message' || action === 'copy'
-    ) {
-      setMode(action);
-      return;
-    }
-    if (action === 'config') {
-      setOpen(true);
-      return;
+    switch (action) {
+      case 'message':
+      case 'copy':
+        setMode(action);
+        break;
+      
+      case 'config':
+        setOpen(true);
+        break;
+
+      case 'clear':
+        setList([]);
+        break;
+
+      default:
     }
   };
 
@@ -93,13 +99,13 @@ function App() {
     input.current = text;
   };
 
-  const clearKeepSending = () => {
+  const clearKeepSending = useCallback(() => {
     if (interval.current) {
       clearInterval(interval.current);
       interval.current = null;
       setList(l => getListWithoutKeeping(l));
     }
-  };
+  }, [getListWithoutKeeping]);
 
   useEffect(() => {
     let realtimeInterval;
@@ -121,13 +127,13 @@ function App() {
         realtimeInterval = null;
       }
     };
-  }, [config.realtimeInput, mode]);
+  }, [config.realtimeInput, mode, clearKeepSending]);
 
   useEffect(() => {
     if (!config.keepShowing) {
       clearKeepSending();
     }
-  }, [config.keepShowing]);
+  }, [config.keepShowing, clearKeepSending]);
 
   useEffect(() => {
     try {
