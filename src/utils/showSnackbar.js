@@ -19,7 +19,7 @@ const SnackbarWrapper = (props) => {
 			autoHideDuration={3000}
 			TransitionComponent={Slide}
 			disableWindowBlurListener
-			sx={{
+			sx={props.anchorOrigin ? {} : {
 				top: 72,
 			}}
 			key={key}

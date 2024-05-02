@@ -9,8 +9,12 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Switch from '@mui/material/Switch';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Fade from '@mui/material/Fade';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { defaultConfig, CONFIG_KEY } from '../utils/const';
+import showSnackbar from '../utils/showSnackbar';
 
 const Config = ({
 	open = false, value = {}, onChange, onClose
@@ -22,6 +26,28 @@ const Config = ({
 				[key]: val,
 			});
 		}
+	};
+
+	const handleReset = () => {
+		if (onChange) {
+			onChange(defaultConfig);
+
+			showSnackbar({
+				message: 'Configuration is reset.',
+				anchorOrigin: { vertical: 'center', horizontal: 'bottom' },
+				action: (
+					<Button
+						color="primary"
+						size="small"
+						onClick={() => {
+							onChange(value);
+						}}>
+						Undo
+					</Button>
+				),
+			});
+		}
+		localStorage.removeItem(CONFIG_KEY);
 	};
 
 	return (
@@ -103,6 +129,13 @@ const Config = ({
 										primary="Show input on the fly"
 										secondary="Send what you're typing in realtime. Technically, every 2 seconds." />
 									<Switch edge="end" checked={value.realtimeInput} />
+								</ListItemButton>
+								<Divider />
+								<ListItemButton
+									onClick={handleReset}>
+									<ListItemText
+										primary="Reset to default"
+										secondary="Reset everything you changed." />
 								</ListItemButton>
 							</List>
 						</Container>
