@@ -46,25 +46,31 @@ const Header = ({ mode, onAction }) => {
 							open={open}
 							onClose={handleClose}
 							MenuListProps={{
-								'aria-labelledby': 'basic-button',
+								'aria-labelledby': 'option-button',
 							}}>
 							<MenuItem
 								onClick={handleAction.bind(this, 'message')}>
+								<Box lineHeight="38px" flex={1} mr="4px">
+									Send to VRChat Chatbox
+								</Box>
 								<Checkbox
-									sx={{ paddingLeft: 0 }}
+									size="small"
 									checked={mode === 'message'} />
-								Send to VRChat Chatbox
 							</MenuItem>
 							<MenuItem
 								onClick={handleAction.bind(this, 'copy')}>
+								<Box lineHeight="38px" flex={1} mr="4px">
+									Send to system clipboard
+								</Box>
 								<Checkbox
-									sx={{ paddingLeft: 0 }}
+									size="small"
 									checked={mode === 'copy'} />
-								Send to system clipboard
 							</MenuItem>
 							<MenuItem
 								onClick={handleAction.bind(this, 'config')}>
-								Config
+								<Box lineHeight="38px" flex={1} mr="4px">
+									Config
+								</Box>
 							</MenuItem>
 						</Menu>
 					</Toolbar>
