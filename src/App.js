@@ -27,8 +27,8 @@ function App() {
   const lastInput = useRef('');
   const interval = useRef();
 
-  const getListWithoutKeeping = () => {
-    return list.map(e => {
+  const getListWithoutKeeping = (l = list) => {
+    return l.map(e => {
       if (mode === 'message' && e.keep) {
         return {
           ...e, keep: false,
@@ -93,11 +93,20 @@ function App() {
     input.current = text;
   };
 
+  const clearKeepSending = () => {
+    if (interval.current) {
+      clearInterval(interval.current);
+      interval.current = null;
+      setList(l => getListWithoutKeeping(l));
+    }
+  };
+
   useEffect(() => {
     let realtimeInterval;
     if (mode === 'message' && config.realtimeInput) {
       realtimeInterval = setInterval(() => {
         if (input.current || input.current !== lastInput.current) {
+          clearKeepSending();
           chatboxInput({
             text: input.current || '', sfx: false
           });
@@ -115,10 +124,8 @@ function App() {
   }, [config.realtimeInput, mode]);
 
   useEffect(() => {
-    if (!config.keepShowing && interval.current) {
-      clearInterval(interval.current);
-      interval.current = null;
-      setList(getListWithoutKeeping());
+    if (!config.keepShowing) {
+      clearKeepSending();
     }
   }, [config.keepShowing]);
 
