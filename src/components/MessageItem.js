@@ -10,6 +10,7 @@ import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ChatIcon from '@mui/icons-material/Chat';
 import ReplayIcon from '@mui/icons-material/Replay';
 import dayjs from 'dayjs';
+import { MAX_LENGTH } from '../utils/const';
 
 const MessageItem  = ({
 	text, time, type = 'message', keep = false, onRefill
@@ -43,7 +44,14 @@ const MessageItem  = ({
 						sx={{
 							wordBreak: 'break-word',
 						}}>
-						{text}
+						{text.substr(0, MAX_LENGTH)}
+						<Typography
+							variant="body"
+							sx={{
+								opacity: 0.5,
+							}}>
+							{text.substr(MAX_LENGTH)}
+						</Typography>
 					</Typography>
 				</CardContent>
 				<CardActions

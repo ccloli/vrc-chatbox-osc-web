@@ -14,3 +14,7 @@ export const CONFIG_KEY = 'vrc-chatbox-osc-web-config';
 
 const userAgent = navigator.userAgent;
 export const IS_SAFARI = userAgent.includes('Safari') && !userAgent.includes('Chrome');
+
+export const MAX_LENGTH = 144;
+export const CJK_MAX_LENGTH = 135;
+export const TIP_SHOW_LENGTH = 120;

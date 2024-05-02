@@ -8,10 +8,7 @@ import SendIcon from '@mui/icons-material/Send';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import debounce from '../utils/debounce';
 import { chatboxTyping } from '../utils/services';
-import { IS_SAFARI } from '../utils/const';
-
-const MAX_LENGTH = 144;
-const TIP_SHOW_LENGTH = 130;
+import { IS_SAFARI, MAX_LENGTH, TIP_SHOW_LENGTH, CJK_MAX_LENGTH } from '../utils/const';
 
 const InputArea = ({
 	value, mode = 'message', sendWithEnter = true, sendTyping = true, onChange, onSubmit
@@ -157,7 +154,11 @@ const InputArea = ({
 									? `${input.length}/${MAX_LENGTH}`
 									: null
 							}
-							error={mode === 'message' && !!input && input.length > MAX_LENGTH}
+							color={
+								mode === 'message' && /[\u4E00-\u9FCC]/.test(input || '') && input.length > CJK_MAX_LENGTH
+									? 'warning' : 'primary'
+							}
+							error={mode === 'message' && input && input.length > MAX_LENGTH}
 							multiline
 							maxRows={4}
 							fullWidth
