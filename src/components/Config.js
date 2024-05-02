@@ -35,7 +35,7 @@ const Config = ({
 				flexDirection="column"
 				left={0}
 				top={0}>
-				<AppBar position="static">
+				<AppBar position="static" sx={{ zIndex: 1 }}>
 					<Container disableGutters>
 						<Toolbar>
 							<IconButton
@@ -54,8 +54,8 @@ const Config = ({
 						</Toolbar>
 					</Container>
 				</AppBar>
-				<Box flex={1}>
-					<Paper sx={{ height: '100%'}}>
+				<Box flex={1} height={0}>
+					<Paper sx={{ height: '100%', overflowY: 'auto' }} square>
 						<Container disableGutters>
 							<List sx={{ width: '100%' }}>
 								<ListItemButton

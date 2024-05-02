@@ -38,7 +38,7 @@ const MessageItem  = ({
 				}}>
 				<CardContent>
 					<Typography
-						variant="body"
+						variant="body1"
 						color="text.primary"
 						whiteSpace="pre-wrap"
 						sx={{
@@ -61,6 +61,7 @@ const MessageItem  = ({
 					}}>
 					<Typography
 						flex={1}
+						variant="caption"
 						sx={{ userSelect: 'none' }}
 						color="text.secondary"
 						fontSize="small">

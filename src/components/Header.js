@@ -24,7 +24,7 @@ const Header = ({ mode, onAction }) => {
 	};
 
 	return (
-		<Box>
+		<Box zIndex={1}>
 			<AppBar position="static">
 				<Container disableGutters>
 					<Toolbar>

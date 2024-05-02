@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
 import SendIcon from '@mui/icons-material/Send';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import debounce from '../utils/debounce';
@@ -131,7 +132,10 @@ const InputArea = ({
 	const label = mode === 'copy' ? 'Send To Clipboard' : 'Send Message';
 
 	return (
-		<Box flex="none" bgcolor="background.default">
+		<Paper
+			sx={{ flex: 'none', zIndex: 1 }}
+			elevation={3}
+			square>
 			<Container>
 				<Box
 					display="flex"
@@ -185,7 +189,7 @@ const InputArea = ({
 					</Box>
 				</Box>
 			</Container>
-		</Box>
+		</Paper>
 	);
 };
 
