@@ -109,7 +109,7 @@ function App() {
         <MessageList list={list} />
         <InputArea
           mode={mode}
-          sendTyping={config.showInputIndicator}
+          sendTyping={mode === 'copy' ? config.showInputIndicatorForClipboard : config.showInputIndicator}
           sendWithEnter={config.sendWithEnter}
           onSubmit={handleSend} />
         <Config
