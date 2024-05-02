@@ -1,5 +1,6 @@
 const { Client } = require('node-osc');
 const { promisify } = require('util');
+const { DEFAULT_OSC_HOST, DEFAULT_OSC_PORT } = require('./const');
 
 const pool = {};
 
@@ -29,6 +30,9 @@ class OSCClient extends Client {
 }
 
 const init = (host, port) => {
+	host = host || process.env.OSC_HOST || DEFAULT_OSC_HOST;
+	port = port || process.env.OSC_PORT || DEFAULT_OSC_PORT;
+
 	const key = `${host}:${port}`;
 	if (pool[key] && !pool[key].closed) {
 		return pool[key];

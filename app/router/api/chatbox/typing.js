@@ -2,7 +2,7 @@ const { init } = require('../../../utils/pool');
 
 module.exports = async (req, res) => {
 	const {
-		host = '127.0.0.1', port = 9000, status = false
+		host, port, status = false
 	} = Object.assign({}, req.query, req.body);
 
 	const client = init(host, port);

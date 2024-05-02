@@ -24,7 +24,13 @@ const IS_TERMUX = (() => {
 
 const VERSION = packageJson.version;
 
+const DEFAULT_OSC_HOST = '127.0.0.1';
+
+const DEFAULT_OSC_PORT = 9000;
+
 module.exports = {
 	IS_TERMUX,
 	VERSION,
+	DEFAULT_OSC_HOST,
+	DEFAULT_OSC_PORT,
 };
