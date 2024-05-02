@@ -8,6 +8,7 @@ import SendIcon from '@mui/icons-material/Send';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import debounce from '../utils/debounce';
 import { chatboxTyping } from '../utils/services';
+import { IS_SAFARI } from '../utils/const';
 
 const MAX_LENGTH = 144;
 const TIP_SHOW_LENGTH = 130;
@@ -19,6 +20,7 @@ const InputArea = ({
 	const [loading, setLoading] = useState(false);
 	const timer = useRef();
 	const typing = useRef(false);
+	const scrollTop = useRef(0);
 
 	const cancelTyping = useCallback(() => {
 		clearTimeout(timer.current);
@@ -28,7 +30,7 @@ const InputArea = ({
 			});
 			typing.current = false;
 		}
-	}, [sendTyping]);
+	}, []);
 
 	const recordTyping = useCallback(debounce(() => {
 		if (!sendTyping) {
@@ -79,9 +81,48 @@ const InputArea = ({
 		}
 	};
 
+	const handleTouchMove = useCallback((event) => {
+		const node = document.getElementById('input');
+		// safari has a weird blank area when you're typing and scrolling all way up.
+		// inspired from https://stackoverflow.com/a/77120903 but add another check.
+		// if the target is the textarea, then maybe you're scrolling to see what you
+		// typed before, so that's fine.
+		// but if the page is scrolled, too, then it'll force the ime to be closed.
+		if (
+			event.target !== node ||
+			Math.abs(document.documentElement.scrollTop - scrollTop.current) > 20
+		) {
+			node.blur();
+		}
+	}, []);
+
+	const handleFocus = () => {
+		if (IS_SAFARI) {
+			document.addEventListener('touchmove', handleTouchMove);
+			setTimeout(() => {
+				scrollTop.current = document.documentElement.scrollTop;
+			}, 1e3);
+		}
+	};
+
+	const handleBlur = () => {
+		if (IS_SAFARI) {
+			document.removeEventListener('touchmove', handleTouchMove);
+		}
+		cancelTyping();
+	};
+
 	useEffect(() => {
 		return cancelTyping;
 	}, [cancelTyping]);
+
+	useEffect(() => {
+		return () => {
+			if (IS_SAFARI) {
+				document.removeEventListener('touchmove', handleTouchMove);
+			}
+		};
+	}, [handleTouchMove]);
 
 	const label = mode === 'copy' ? 'Send To Clipboard' : 'Send Message';
 
@@ -100,7 +141,8 @@ const InputArea = ({
 							onChange={handleInput}
 							onKeyDown={handleKeyDown}
 							onInput={recordTyping}
-							onBlur={cancelTyping}
+							onFocus={handleFocus}
+							onBlur={handleBlur}
 							label={
 								mode === 'message' && input && input.length > TIP_SHOW_LENGTH
 									? `${input.length}/${MAX_LENGTH}`

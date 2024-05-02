@@ -10,3 +10,6 @@ export const defaultConfig = {
 };
 
 export const CONFIG_KEY = 'vrc-chatbox-osc-web-config';
+
+const userAgent = navigator.userAgent;
+export const IS_SAFARI = userAgent.includes('Safari') && !userAgent.includes('Chrome');
