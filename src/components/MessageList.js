@@ -99,7 +99,7 @@ const MessageList = ({
 					overflow="auto"
 					onScroll={handleListScroll}>
 					<Container>
-						<span id="message-list-start" />
+						<div id="message-list-start" />
 						<List
 							id="message-list"
 							sx={{ width: '100%', outline: 'none' }}>
@@ -129,7 +129,7 @@ const MessageList = ({
 								</Fab>
 							</Box>
 						</Grow>
-						<span id="message-list-end" ref={end} />
+						<div id="message-list-end" ref={end} />
 					</Container>
 				</Box>
 			</Box>
