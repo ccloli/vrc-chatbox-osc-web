@@ -1,5 +1,9 @@
+const { getConfig } = require('./config');
+
 const auth = (req, res, next) => {
-	if (!process.env.AUTH_USER && !process.env.AUTH_PASS) {
+	const authUser = getConfig('AUTH_USER');
+	const authPass = getConfig('AUTH_PASS');
+	if (!authUser && !authPass) {
 		return next();
 	}
 
@@ -9,8 +13,8 @@ const auth = (req, res, next) => {
 			const [user, ...passParts] = Buffer.from(authHeader, 'base64').toString('utf-8').split(':');
 			const pass = passParts.join(':');
 			if (
-				(process.env.AUTH_USER || '') === user &&
-				(process.env.AUTH_PASS || '') === pass
+				(!authUser || String(authUser) === user) &&
+				(!authPass || String(authPass) === pass)
 			) {
 				return next();
 			}

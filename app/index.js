@@ -5,6 +5,7 @@ const notFound = require('./utils/notFound');
 const logger = require('./utils/logger');
 const showUrlHelp = require('./utils/showUrlHelp');
 const auth = require('./utils/auth');
+const { getConfig } = require('./utils/config');
 require('./utils/showSystemInfo')();
 
 const app = express();
@@ -16,7 +17,7 @@ app.use(express.static(path.resolve(__dirname, '../', 'build')));
 app.use('/', router);
 app.use('*', notFound);
 
-const port = process.env.PORT || 38888;
+const port = getConfig('PORT');
 app.listen(port, () => {
 	console.log(`Server is now listening on port ${port}.`);
 	showUrlHelp({ port });

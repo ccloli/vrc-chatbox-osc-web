@@ -1,4 +1,5 @@
 const { networkInterfaces } = require('os');
+const { getConfig } = require('./config');
 
 const showUrlHelp = ({ port }) => {
 	try {
@@ -17,12 +18,14 @@ const showUrlHelp = ({ port }) => {
 				});
 			}
 		}
+
+		const showIPv6 = getConfig('SHOW_IPV6');
 		list.sort((a, b) => (
 			(b.family === 'IPv4') - (a.family === 'IPv4')
 			|| b.internal - a.internal
 			|| a.address.localeCompare(b.address)
 		)).forEach((item) => {
-			if (process.env.SHOW_IPV6 || item.family === 'IPv4') {
+			if (showIPv6 || item.family === 'IPv4') {
 				console.log(`    ${item.url}${' '.repeat(maxlen - item.url.length + 4)}[${item.interface}]`);
 			}
 		});
