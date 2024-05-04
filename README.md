@@ -1,70 +1,109 @@
-# Getting Started with Create React App
+# vrc-chatbox-osc-web
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A webapp to send message to VRChat Chatbox via OSC, which you may not need.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Send message to VRChat Chatbox via web browser, so that you can send from other devices like mobile phone.
+- Send message to system clipboard, so that you can paste it directly.
+- Customize whether to show input indicator or play SFX.
+- Keep showing the last message in Chatbox.
+- Show what you're typing to Chatbox in realtime.
+- UI is mobile friendly.
 
-### `npm start`
+## Instructions
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Use pre-packed binary
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Download executable binary from [GitHub Releases](https://github.com/ccloli/vrc-chatbox-osc-web/releases), and run it directly.
 
-### `npm test`
+The pre-packed binary has already bundled Node.js, so you don't need to download Node.js manually.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Use your system's Node.js
 
-### `npm run build`
+Node.js >= 16 is required.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repo, or download source code tar ball
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Download prebuild assets from [GitHub Releases](https://github.com/ccloli/vrc-chatbox-osc-web/releases), and extract them into `/build` folder
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. `npm install --production`
 
-### `npm run eject`
+4. `npm start`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Startup Options
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `--port [PORT]`: Web server port, default `38888`
+- `--osc-host [HOST]`: VRChat OSC host, default `127.0.0.1`
+- `--osc-port [PORT]`: VRChat OSC port, default `9000`
+- `--auth-user [USERNAME]`: Login username
+- `--auth-pass [PASSWORD]`: Login password
+- `--show-ipv6`: Print bind IPv6 addresses for web server
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+You can also use environment variable to set options, just need to spell them in upper case and replace `-` to underline `_`. For example, if you want to enable authorization for security reason, you can use `AUTH_USER=foo AUTH_PASS=b@rb@2QU><`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Development
 
-## Learn More
+1. Clone the repo, or download source code tar ball
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. `npm install`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. `npm start` to run backend server
 
-### Code Splitting
+4. `npm run dev` to run frontend development server
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+5. `npm run build` to build frontend production assets
 
-### Analyzing the Bundle Size
+6. `npm run pack` to bundle executable binary
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Q & A
 
-### Making a Progressive Web App
+### I cannot open the server in browser.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Check your firewall settings and make sure you've allow incoming traffic to the server (default port is `38888`).
+- The server prints a few addresses on startup, try them one by one.
+- Make sure your device is in the same network with the device running the server.
 
-### Advanced Configuration
+### Message is not shown.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Make sure you've already enabled OSC feature in VRChat. To enable it, open Action Menu -> Options -> OSC -> Enabled.
+- If the server is not on the same device running VRChat, you need to manually set `--osc-host` to the target device. However, copy to clipboard will not work, since it's not an OSC api, the feature is implemented on server side.
 
-### Deployment
+### Can I run it on Android phone?
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Yes, you need to install [Termux](https://termux.dev/) and run it in shell. For most Android devices, use the ARM64 binary.
 
-### `npm run build` fails to minify
+```sh
+chmod +x ./vrc-chatbox-osc-web-linuxstatic-arm64
+./vrc-chatbox-osc-web-linuxstatic-arm64
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If you need the clipboard feature, you need to install [Termux:API](https://wiki.termux.com/wiki/Termux:API) add-on, and run `pkg install termux-api` in shell.
+
+If you want to integrate with VRChat mobile, you can open the web ui in browser, then open your browser as pop-up window (may vary based on your system), so that it can over the VRChat app. If open an app as a window is not an option for your system, I'd recommend [this app](https://github.com/ScrapW/Chatbox).
+
+However, you can type in Chatbox with native keyboard directly, though it may not a great experience. But running the server on Android would probably not a great experience, too.
+
+### Can I run it on Meta Quest device?
+
+Yes, but you need a developer account, and follow the previous Android phone steps. However, typing command with the built-in keyboard in Termux is awful, and you need to switch back to Quest Browser to input. I don't see it worth, unless you need to use the system keyboard like typing Korean or Japanese.
+
+### Can I run it on Pico device?
+
+Probably not, running it in Termux returns "Bad system call". Besides, Pico OS doesn't allow opening browser when playing VR game.
+
+### Can I run it on Mac?
+
+Yes but why? Is it the day VRChat removes EAC, so that you can run the game on macOS? That's the reason why the prebuild binaries don't include macOS and Windows on arm64.
+
+### Is it dumb to type on the phone while using VR?
+
+Of course! I realized it just after finish its main feature! Typing on your phone while holding controllers? That's why I say you may not need it! Say something good, at least you can open it in desktop browser, and type CJK or even emoji! Or just put your headset aside, listen to the PC, and typing on your phone! Or just use it as a HTTP API so that you can use it in other program! Whatever, I'm out!
+
+### So is this a 💩?
+
+Yeah! Shitty 💩!
+
+## License
+
+GPLv3
