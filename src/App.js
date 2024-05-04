@@ -54,7 +54,7 @@ function App() {
           chatboxInput({
             text, sfx: false
           });
-        }, 10e3);
+        }, 4000);
       }
     }
 
