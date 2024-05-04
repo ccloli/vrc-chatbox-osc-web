@@ -9,7 +9,7 @@ import SendIcon from '@mui/icons-material/Send';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import debounce from '../utils/debounce';
 import { chatboxTyping } from '../utils/services';
-import { IS_SAFARI, MAX_LENGTH, TIP_SHOW_LENGTH, CJK_MAX_LENGTH } from '../utils/const';
+import { IS_SAFARI, IS_STANDALONE, MAX_LENGTH, TIP_SHOW_LENGTH, CJK_MAX_LENGTH } from '../utils/const';
 
 const InputArea = ({
 	value, mode = 'message', sendWithEnter = true, sendTyping = true, onChange, onSubmit
@@ -136,7 +136,11 @@ const InputArea = ({
 
 	return (
 		<Paper
-			sx={{ flex: 'none', zIndex: 1 }}
+			sx={{
+				flex: 'none',
+				zIndex: 1,
+				pb: IS_SAFARI && IS_STANDALONE ? '12px' : 0,
+			}}
 			elevation={3}
 			square>
 			<Container>
