@@ -11,11 +11,11 @@ A webapp to send message to VRChat Chatbox via OSC, which you may not need.
 - Show what you're typing to Chatbox in realtime.
 - UI is mobile friendly.
 
-## Instructions
+## Usage
 
 ### Use pre-packed binary
 
-Download executable binary from [GitHub Releases](https://github.com/ccloli/vrc-chatbox-osc-web/releases), and run it directly.
+Download executable binary from [GitHub Releases](https://github.com/ccloli/vrc-chatbox-osc-web/releases) basd on your operating system, and run it directly.
 
 The pre-packed binary has already bundled Node.js, so you don't need to download Node.js manually.
 
@@ -24,11 +24,8 @@ The pre-packed binary has already bundled Node.js, so you don't need to download
 Node.js >= 16 is required.
 
 1. Clone the repo, or download source code tar ball
-
 2. Download prebuild assets from [GitHub Releases](https://github.com/ccloli/vrc-chatbox-osc-web/releases), and extract them into `/build` folder
-
 3. `npm install --production`
-
 4. `npm start`
 
 ### Startup Options
@@ -45,15 +42,10 @@ You can also use environment variable to set options, just need to spell them in
 ## Development
 
 1. Clone the repo, or download source code tar ball
-
 2. `npm install`
-
 3. `npm start` to run backend server
-
 4. `npm run dev` to run frontend development server
-
 5. `npm run build` to build frontend production assets
-
 6. `npm run pack` to bundle executable binary
 
 ## Q & A
@@ -82,7 +74,7 @@ If you need the clipboard feature, you need to install [Termux:API](https://wiki
 
 If you want to integrate with VRChat mobile, you can open the web ui in browser, then open your browser as pop-up window (may vary based on your system), so that it can over the VRChat app. If open an app as a window is not an option for your system, I'd recommend [this app](https://github.com/ScrapW/Chatbox).
 
-However, you can type in Chatbox with native keyboard directly, though it may not a great experience. But running the server on Android would probably not a great experience, too.
+However, you can type in Chatbox with native keyboard on VRChat mobile version directly, though it may not a great experience. But running the server on Android would probably not a great experience, too.
 
 ### Can I run it on Meta Quest device?
 

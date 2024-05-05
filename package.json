@@ -62,7 +62,7 @@
       "node16-linuxstatic-x64",
       "node16-linuxstatic-arm64"
     ],
-    "outputPath": "R:\\dist"
+    "outputPath": "dist"
   },
   "proxy": "http://localhost:38888"
 }
